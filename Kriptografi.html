@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encrypt & Decrypt</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+      input,
+      textarea {
+        width: 80%;
+        margin: 10px;
+        padding: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Encrypt & Decrypt Text</h2>
+    <textarea id="inputText" placeholder="Enter text..."></textarea><br />
+    <input type="text" id="key" placeholder="Enter secret key" /><br />
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+    <h3>Output:</h3>
+    <textarea id="outputText" readonly></textarea>
+
+    <script>
+      function encrypt() {
+        let text = document.getElementById("inputText").value;
+        let key = document.getElementById("key").value;
+        let encrypted = CryptoJS.AES.encrypt(text, key).toString();
+        document.getElementById("outputText").value = encrypted;
+      }
+
+      function decrypt() {
+        let encryptedText = document.getElementById("inputText").value;
+        let key = document.getElementById("key").value;
+        let decrypted = CryptoJS.AES.decrypt(encryptedText, key).toString(
+          CryptoJS.enc.Utf8
+        );
+        document.getElementById("outputText").value =
+          decrypted || "Invalid Key or Encrypted Text";
+      }
+    </script>
+  </body>
+</html>
